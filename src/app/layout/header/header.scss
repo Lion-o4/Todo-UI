@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  //   margin-top: 35px;
+  //   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  align-items: center;
+  gap: 20px;
+  box-shadow: 30px 30px 75px whitesmoke;
+  cursor: pointer;
+  background: azure;
+
+  h2 {
+    margin: 0px;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-style: normal;
+  }
+
+  .task {
+    display: flex;
+    gap: 20px;
+    .dash1 {
+      &:hover {
+        background-color: pink;
+
+        border-radius: 5px;
+      }
+    }
+    .dash2 {
+      &:hover {
+        background-color: pink;
+        border-radius: 5px;
+      }
+    }
+    .dash3 {
+      &:hover {
+        background-color: pink;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  .profile-images {
+    display: flex;
+    margin-left: 900px;
+    gap: 66px;
+
+    .img {
+      height: 39px;
+    }
+  }
+}
