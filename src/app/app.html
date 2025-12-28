@@ -4,14 +4,20 @@
 <input type="text" placeholder="Enter todo" [(ngModel)]="newTodo" />
 
 <!-- Show ADD button when NOT editing -->
-<button *ngIf="!isEditing" (click)="addTodo()">Add</button>
+@if(!isEditing){
+
+<button (click)="addTodo()">Add</button>
+}@else{
+<button (click)="updateTodo()">Update</button>
+
+}
 
 <!-- Show UPDATE button when editing -->
-<button *ngIf="isEditing" (click)="updateTodo()">Update</button>
-
+bangaddd
 <ul>
-  <li *ngFor="let todo of todos;let i=index;">
-    {{ i+1 }} - {{ todo.text }}
+  @for(todo of todos;track todo){
+  <li>
+    {{$index}} - {{ todo.text }}
 
     <!-- Edit button -->
     <button (click)="startEdit(todo)">✏️ Edit</button>
@@ -19,4 +25,5 @@
     <!-- Delete button -->
     <button (click)="deleteTodo(todo.id)">❌ Delete</button>
   </li>
+  }
 </ul>
