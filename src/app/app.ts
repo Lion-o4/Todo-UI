@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,11 +15,11 @@ export interface Todo {
 })
 export class AppComponent implements OnInit {
   todos: Todo[] = [];
-  newTodo: string = '';
-  isEditing: boolean = false;
+  newTodo = '';
+  isEditing = false;
   editTodoId: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   ngOnInit() {
     this.loadTodos();
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 
   loadTodos() {
     // GET api call to fetch user todo data
-    this.http.get<any[]>('http://localhost:3000/todos').subscribe((data) => {
+    this.http.get<Todo[]>('http://localhost:3000/todos').subscribe((data) => {
       this.todos = data;
     });
   }
@@ -36,10 +36,10 @@ export class AppComponent implements OnInit {
     if (!this.newTodo.trim()) return;
 
     this.http
-      .post('http://localhost:3000/todos', {
+      .post<Todo>('http://localhost:3000/todos', {
         text: this.newTodo,
       })
-      .subscribe((res: any) => {
+      .subscribe((res: Todo) => {
         this.newTodo = '';
         this.todos.push(res);
       });
@@ -47,12 +47,10 @@ export class AppComponent implements OnInit {
   deleteTodo(id: number) {
     console.log(id);
 
-    this.http
-      .delete(`http://localhost:3000/todos/${id}`)
-      .subscribe((res: any) => {
-        this.todos = this.todos.filter((item: Todo) => item.id !== id);
-        console.log(this.todos);
-      });
+    this.http.delete(`http://localhost:3000/todos/${id}`).subscribe(() => {
+      this.todos = this.todos.filter((item: Todo) => item.id !== id);
+      console.log(this.todos);
+    });
   }
   updateTodo() {
     if (!this.newTodo.trim() || this.editTodoId === null) return;
@@ -69,7 +67,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  startEdit(todo: any) {
+  startEdit(todo: Todo) {
     this.isEditing = true; // switch to edit mode
     this.editTodoId = todo.id; // store id of todo being edited
     this.newTodo = todo.text; // put text into input box
