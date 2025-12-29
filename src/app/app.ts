@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from './layout/header/header';
+import { Dashboard } from './features/dashboard/dashboard';
+
 export interface Todo {
   id: number;
   text: string;
@@ -10,7 +12,7 @@ export interface Todo {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, Header],
+  imports: [CommonModule, FormsModule, Header, Dashboard],
   templateUrl: './app.html',
 })
 export class AppComponent implements OnInit {
@@ -27,16 +29,18 @@ export class AppComponent implements OnInit {
 
   loadTodos() {
     // GET api call to fetch user todo data
-    this.http.get<Todo[]>('http://localhost:3000/todos').subscribe((data) => {
-      this.todos = data;
-    });
+    this.http
+      .get<Todo[]>('https://todo-express-backend-vkrq.onrender.com/todos')
+      .subscribe((data) => {
+        this.todos = data;
+      });
   }
 
   addTodo() {
     if (!this.newTodo.trim()) return;
 
     this.http
-      .post<Todo>('http://localhost:3000/todos', {
+      .post<Todo>('https://todo-express-backend-vkrq.onrender.com/todos', {
         text: this.newTodo,
       })
       .subscribe((res: Todo) => {
@@ -47,18 +51,23 @@ export class AppComponent implements OnInit {
   deleteTodo(id: number) {
     console.log(id);
 
-    this.http.delete(`http://localhost:3000/todos/${id}`).subscribe(() => {
-      this.todos = this.todos.filter((item: Todo) => item.id !== id);
-      console.log(this.todos);
-    });
+    this.http
+      .delete(`https://todo-express-backend-vkrq.onrender.com/todos/${id}`)
+      .subscribe(() => {
+        this.todos = this.todos.filter((item: Todo) => item.id !== id);
+        console.log(this.todos);
+      });
   }
   updateTodo() {
     if (!this.newTodo.trim() || this.editTodoId === null) return;
 
     this.http
-      .put(`http://localhost:3000/todos/${this.editTodoId}`, {
-        text: this.newTodo,
-      })
+      .put(
+        `https://todo-express-backend-vkrq.onrender.com/todos/${this.editTodoId}`,
+        {
+          text: this.newTodo,
+        }
+      )
       .subscribe(() => {
         this.newTodo = '';
         this.isEditing = false;
