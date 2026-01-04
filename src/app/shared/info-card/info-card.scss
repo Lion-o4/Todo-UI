@@ -1,7 +1,65 @@
-.info {
-  text-emphasis-color: white;
-  margin-left: 26px;
-  width: 350px;
-  background-color: aqua;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+.card {
+  margin: 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 14px;
+  border: 1px solid lightgray;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06);
+
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  color: gray;
+  font-size: 18px;
+}
+
+.content h1 {
+  margin: 0;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.sub {
+  color: gray;
+  font-size: 16px;
+}
+
+.icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blue {
+  background-color: lightblue;
+}
+
+.blue::after {
+  content: "✓";
+  font-size: 26px;
+  color: blue;
+  font-weight: bold;
+}
+
+.orange {
+  background-color: lightyellow;
+}
+
+.green {
+  background-color: lightgreen;
 }
