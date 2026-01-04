@@ -1,8 +1,44 @@
-h1 {
-  margin: 0px;
-  padding: 0px;
+.all {
+  padding: 32px;
+  background-color: whitesmoke;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
-p {
-  margin: 0px;
-  padding: 0px;
+
+.all h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.all p {
+  color: gray;
+  margin-top: 8px;
+  margin-bottom: 32px;
+  font-size: 16px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+}
+
+.actions button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: lightgray;
+}
+
+.actions button:hover {
+  background-color: gray;
+  color: white;
 }

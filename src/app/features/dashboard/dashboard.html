@@ -1,5 +1,21 @@
 <div class="all">
-  <h1>Welcome back,Grv</h1>
+  <h1>Welcome back, Grv</h1>
   <p>Here's an overview of your tasks and recent activity.</p>
+
+  <div class="cards">
+    @for( card of cards;track card.title){
+    <app-info-card
+      [title]="card.title"
+      [value]="card.value"
+      [sub]="card.sub"
+      [color]="card.color"
+    >
+    </app-info-card
+    >}
+  </div>
+
+  <div class="actions">
+    <button (click)="register()">Register</button>
+    <button (click)="loguser()">Login</button>
+  </div>
 </div>
-<app-info-card></app-info-card>

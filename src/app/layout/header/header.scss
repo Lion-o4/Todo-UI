@@ -1,52 +1,62 @@
 .header {
   display: flex;
-  //   margin-top: 35px;
-  //   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   align-items: center;
-  gap: 20px;
-  box-shadow: 30px 30px 75px whitesmoke;
+  padding: 16px 32px;
+  background-color: white;
+  border-bottom: 1px solid lightgray;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.task {
+  display: flex;
+  gap: 16px;
+  margin-left: 40px;
+  align-items: center;
+}
+
+.task h3 {
+  margin: 0;
+  font-weight: normal;
+  color: gray;
   cursor: pointer;
-  background: azure;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
 
-  h2 {
-    margin: 0px;
-    padding: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-style: normal;
-  }
+.task h3:hover {
+  background-color: whitesmoke;
+  color: black;
+}
 
-  .task {
-    display: flex;
-    gap: 20px;
-    .dash1 {
-      &:hover {
-        background-color: pink;
+.task h3:active {
+  background-color: lightgray;
+  color: black;
+}
 
-        border-radius: 5px;
-      }
-    }
-    .dash2 {
-      &:hover {
-        background-color: pink;
-        border-radius: 5px;
-      }
-    }
-    .dash3 {
-      &:hover {
-        background-color: pink;
-        border-radius: 5px;
-      }
-    }
-  }
+.dash1,
+.dash2,
+.dash3 {
+  background-color: transparent;
+  color: gray;
+}
 
-  .profile-images {
-    display: flex;
-    margin-left: 900px;
-    gap: 66px;
+.profile-images {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 
-    .img {
-      height: 39px;
-    }
-  }
+.img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
 }
