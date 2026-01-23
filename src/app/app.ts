@@ -4,15 +4,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from './layout/header/header';
 import { Dashboard } from './features/dashboard/dashboard';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { AuthService } from './core/auth.service';
 
 export interface Todo {
   id: number;
   text: string;
 }
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, Header, Dashboard],
+  imports: [CommonModule, FormsModule, RouterOutlet, Header],
   templateUrl: './app.html',
 })
 export class AppComponent implements OnInit {
@@ -21,16 +24,25 @@ export class AppComponent implements OnInit {
   isEditing = false;
   editTodoId: number | null = null;
 
+  private authService = inject(AuthService);
+
   private http = inject(HttpClient);
 
-  ngOnInit() {
+  authToken: string | null = null;
+  async ngOnInit() {
+    console.log(this.authService.getAccessToken());
+    this.authToken = await this.authService.getAccessToken();
     this.loadTodos();
   }
 
   loadTodos() {
     // GET api call to fetch user todo data
     this.http
-      .get<Todo[]>('https://todo-express-backend-vkrq.onrender.com/todos')
+      .get<Todo[]>('http://localhost:3000/todos', {
+        headers: {
+          Authorization: 'Bearer ' + this.authToken,
+        },
+      })
       .subscribe((data) => {
         this.todos = data;
       });
