@@ -1,21 +1,113 @@
-<div class="all">
-  <h1>Welcome back, Grv</h1>
-  <p>Here's an overview of your tasks and recent activity.</p>
+<!-- WELCOME -->
+<h1 class="welcome">Welcome back</h1>
+<p class="subtitle">Here's an overview of your tasks and recent activity.</p>
 
-  <div class="cards">
-    @for( card of cards;track card.title){
-    <app-info-card
-      [title]="card.title"
-      [value]="card.value"
-      [sub]="card.sub"
-      [color]="card.color"
-    >
-    </app-info-card
-    >}
+<!-- INFO CARDS -->
+<div class="cards">
+  <app-info-card
+    title="Total Tasks"
+    [value]="totalTasks"
+    sub="{{ pendingTasks }} pending"
+    color="blue"
+  >
+  </app-info-card>
+
+  <app-info-card
+    title="In Progress"
+    [value]="inProgressTasks"
+    sub="Active tasks"
+    color="orange"
+  >
+  </app-info-card>
+
+  <app-info-card
+    title="Completed"
+    [value]="completedTasks"
+    sub="{{ completionRate }}% completion rate"
+    color="green"
+  >
+  </app-info-card>
+</div>
+
+<!-- MAIN GRID -->
+<div class="dashboard-container">
+  <!-- QUICK ACTIONS -->
+  <div class="quick-actions-card">
+    <h2>Quick Actions</h2>
+
+    <div class="qa-item" (click)="openModal()">
+      <div class="qa-icon">+</div>
+      <p>New Task</p>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-icon">📄</div>
+      <p>View Reports</p>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-icon">👥</div>
+      <p>Team Members</p>
+    </div>
   </div>
 
-  <div class="actions">
-    <button (click)="register()">Register</button>
-    <button (click)="loguser()">Login</button>
+  <!-- TASKS -->
+  <div class="tasks-section">
+    <div class="tasks-header">
+      <h2>Tasks</h2>
+      <button (click)="openModal()">+ New Task</button>
+    </div>
+
+    <p *ngIf="tasks.length === 0" class="empty">No tasks yet. Create one</p>
+
+    <div class="task-item" *ngFor="let task of tasks">
+      <div
+        class="checkbox"
+        [class.checked]="task.completed"
+        (click)="toggleComplete(task)"
+      >
+        ✓
+      </div>
+
+      <div class="content">
+        <h3 [class.done]="task.completed">{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+
+        <div class="meta">
+          <span class="badge {{ task.priority.toLowerCase() }}">
+            {{ task.priority }}
+          </span>
+          <span>{{ task.dueDate }}</span>
+        </div>
+      </div>
+
+      <div class="dots">⋯</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <h2>Create New Task</h2>
+
+    <input placeholder="Title" [(ngModel)]="newTask.title" />
+    <textarea
+      placeholder="Description"
+      [(ngModel)]="newTask.description"
+    ></textarea>
+
+    <select [(ngModel)]="newTask.priority">
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+
+    <input type="date" [(ngModel)]="newTask.dueDate" />
+
+    <div class="actions">
+      <button (click)="closeModal()">Cancel</button>
+      <button class="primary" (click)="createTask()">Create Task</button>
+    </div>
   </div>
 </div>

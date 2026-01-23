@@ -1,13 +1,31 @@
-<div class="header">
-  <h2>DoTask</h2>
+<header class="header">
+  <div class="left">
+    <span class="logo">TodoApp</span>
 
-  <div class="task">
-    <h3 class="dash1">Dashboard</h3>
-    <h3 class="dash2">Project</h3>
-    <h3 class="dash3">Team</h3>
+    <nav class="nav">
+      <span class="nav-item active">Dashboard</span>
+      <span class="nav-item">Projects</span>
+      <span class="nav-item">Team</span>
+    </nav>
   </div>
-  <div class="profile-images">
-    <img src="noti.jpeg" alt="notification image" class="img" />
-    <img src="user.jpg" alt="user icon" class="img" />
+
+  <div class="right">
+    <div class="notification">
+      <span class="dot"></span>
+    </div>
+
+    <div class="profile" (click)="toggleMenu()">
+      <div class="avatar">{{ user.initials }}</div>
+      <span class="username">{{ user.name }}</span>
+
+      <div class="dropdown" *ngIf="showMenu">
+        <div class="user-info">
+          <strong>{{ user.name }}</strong>
+          <span>{{ user.email }}</span>
+        </div>
+
+        <button class="logout" (click)="logout()">Sign out</button>
+      </div>
+    </div>
   </div>
-</div>
+</header>
